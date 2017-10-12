@@ -15,6 +15,14 @@ namespace TestCoreNanny
         public static void Main(string[] args)
         {
             BuildWebHost(args).Run();
+            /*
+            var uri =
+    new Uri("http://localhost:3579");
+            var uris = new[] { uri };
+            var hostConfig = new HostConfiguration();
+            hostConfig.UrlReservations.CreateAutomatically = true;
+            */
+
         }
 
         public static IWebHost BuildWebHost(string[] args) =>

@@ -12,6 +12,8 @@ using Nancy;
 using Nancy.Owin;
 
 using Microsoft.AspNetCore.Routing;
+using Microsoft.Extensions.Logging;
+
 
 
 namespace TestCoreNanny
@@ -73,6 +75,7 @@ namespace TestCoreNanny
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IHostingEnvironment env)
         {
+
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
