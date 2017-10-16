@@ -6,6 +6,8 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.DependencyInjection;
+
+
 // using Microsoft.Extensions.Logging;
 // using Microsoft.AspNetCore.Owin;
 
@@ -28,7 +30,7 @@ namespace TestCoreNanny
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddRouting();
-        }
+        } // End Sub ConfigureServices 
 
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -37,7 +39,8 @@ namespace TestCoreNanny
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
-            }
+            } // End if (env.IsDevelopment()) 
+
 
             //app.UseCors()
             //app.UseCors(
@@ -76,11 +79,11 @@ namespace TestCoreNanny
                 {
                     IInlineConstraintResolver requiredService =
                         r.ServiceProvider.GetRequiredService<IInlineConstraintResolver>();
-
-                    // r.DefaultHandler = new LoLRouteHandler();
-
+                    
+                    // r.DefaultHandler = new CustomRouter();
+                    
                     r.Routes.Add( // (IRouter)
-                                 new Route( new LoLRouteHandler("LoL")
+                                 new Route( new CustomRouter("LoL")
                                            , "lol/{id?}", requiredService)
                     );
                     
@@ -99,13 +102,9 @@ namespace TestCoreNanny
                     });
 
                     // r.MapRoute("nae", "template", "default", "constrains", "tokens");
-                    
-                    // app.UseRouter(r.Build());
-                    // r.Build();
-                }
-            );
-
-
+                } // End delegate(Microsoft.AspNetCore.Routing.IRouteBuilder r) 
+                
+            ); // End UseRouter 
 
 
             //de.stack.com / API
@@ -118,10 +117,11 @@ namespace TestCoreNanny
             //{
             //    await context.Response.WriteAsync("Hello World!");
             //});
-        }
+
+        } // End Sub Configure 
 
 
-    }
+    } // End Class Startup 
 
 
-}
+} // End Namespace TestCoreNanny 
