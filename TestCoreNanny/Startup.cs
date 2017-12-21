@@ -16,6 +16,10 @@ using Nancy.Owin;
 
 using Microsoft.AspNetCore.Routing;
 
+// using Microsoft.AspNetCore.Mvc.Internal;
+
+
+// https://codeopinion.com/why-use-nancy/
 
 namespace TestCoreNanny
 {
@@ -30,6 +34,7 @@ namespace TestCoreNanny
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddRouting();
+            services.AddMvc();
         } // End Sub ConfigureServices 
 
 
@@ -72,6 +77,17 @@ namespace TestCoreNanny
             app.UseStatusCodePages();
 
 
+            /*
+            app.UseMvc(delegate (Microsoft.AspNetCore.Routing.IRouteBuilder r)
+            { 
+                r.MapRoute(
+                    name: "default",
+                    template: "{controller=Home}/{action=Index}/{id?}"
+                );
+                
+            });
+            */
+
             // https://www.strathweb.com/2017/01/building-microservices-with-asp-net-core-without-mvc/
             // https://docs.microsoft.com/en-us/aspnet/core/fundamentals/routing
             app.UseRouter(
@@ -79,14 +95,24 @@ namespace TestCoreNanny
                 {
                     IInlineConstraintResolver requiredService =
                         r.ServiceProvider.GetRequiredService<IInlineConstraintResolver>();
-                    
+
                     // r.DefaultHandler = new CustomRouter();
+
                     
                     r.Routes.Add( // (IRouter)
                                  new Route( new CustomRouter("LoL")
                                            , "lol/{id?}", requiredService)
                     );
                     
+                    System.Console.WriteLine("hello");
+                r.Routes.Add(new Route(new CustomRouteHandler(app)
+                                       , "{controller=Home}/{action=Index}/{id?}"
+                                       , requiredService));
+
+
+
+
+
                     InMemoryContactRepository contactRepo = new InMemoryContactRepository();
                     
                     r.MapGet("contacts", async (request, response, routeData) =>

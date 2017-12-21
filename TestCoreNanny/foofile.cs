@@ -17,7 +17,8 @@ using Microsoft.AspNetCore.Routing.Template;
 
 namespace TestCoreNanny
 {
-    
+
+#if false
 
     public static class Foofile
     {
@@ -76,7 +77,8 @@ namespace TestCoreNanny
         } // End Function UseMvc 
 
 
-    } // End Class 
+    } // End Class
 
+    #endif 
 
 } // End Namespace 

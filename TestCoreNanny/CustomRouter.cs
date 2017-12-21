@@ -54,8 +54,29 @@ namespace TestCoreNanny
 </body>
 </html>
 ";
+            
+            context.Handler =  new RequestDelegate(
+                delegate (HttpContext c)
+                {
+                    System.Reflection.MethodInfo tt = 
+                    typeof(MyRouteActions).GetMethod("DoSomething", 
+                                                       System.Reflection.BindingFlags.Public 
+                                                     | System.Reflection.BindingFlags.Static);
+                    
+                    Task t = (Task)tt.Invoke(null, new object[] { c });
+                    // t.Wait();
+                    return t;
+                    
+                    // Task a = (Task) tt.InvokeAsync(null, c);
+                    // await a;
+                    // return Task.CompletedTask;
+                    
+                    // await MyRouteActions.InvokeAsync(tt, null, c);
+                }
+            );
 
-            context.Handler = (RequestDelegate) //(c =>
+            /*
+            context.Handler = new RequestDelegate(
                 async delegate (HttpContext c)
                 {
                     // c.Response.StatusCode = 200;
@@ -63,12 +84,14 @@ namespace TestCoreNanny
                     // context.HttpContext.Response.WriteAsync(message);
                     await c.Response.WriteAsync(message);
 
+
                     // await context.HttpContext.Response.WriteAsync(message);
 
                     // For when delegate isn't async 
                     //return Task.CompletedTask;
-                } //)
-            ;
+                }
+            );
+            */
 
             // context.HttpContext.Response.ContentType = "text/html";
             // context.HttpContext.Response.WriteAsync(message);
@@ -81,7 +104,7 @@ namespace TestCoreNanny
         } // End Function RouteAsync 
 
 
-    } // End Class CustomRouter
+    } // End Class CustomRouter 
 
 
-}
+} // End Namespace TestCoreNanny 
