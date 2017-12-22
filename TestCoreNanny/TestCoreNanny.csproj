@@ -1,18 +1,17 @@
-<Project Sdk="Microsoft.NET.Sdk.Web">
-
+﻿<Project Sdk="Microsoft.NET.Sdk.Web">
   <PropertyGroup>
     <TargetFramework>netcoreapp2.0</TargetFramework>
   </PropertyGroup>
-
   <ItemGroup>
     <Folder Include="wwwroot\" />
     <Folder Include="Controllers\" />
   </ItemGroup>
-
   <ItemGroup>
     <PackageReference Include="Microsoft.AspNetCore.All" Version="2.0.0" />
     <PackageReference Include="Microsoft.AspNetCore.Owin" Version="2.0.0" />
+    <PackageReference Include="MySqlConnector" Version="0.33.2" />
     <PackageReference Include="Nancy" Version="2.0.0-clinteastwood" />
+    <PackageReference Include="Npgsql" Version="3.2.6" />
   </ItemGroup>
-
+  <Import Project="..\..\CoreDAL\CoreDb\CoreDb.projitems" Label="Shared" />
 </Project>
